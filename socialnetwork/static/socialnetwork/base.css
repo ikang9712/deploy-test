@@ -1,0 +1,52 @@
+#id_header_div{
+    background-color: darksalmon;
+    height:100px;
+    width: 100%;
+
+}
+#id_site_name{
+    font-style: italic;
+}
+label {
+    font-size: large;
+}
+input {
+    font-size: large;
+}
+
+#id_nav {
+    float: right;
+    font-size: large;
+}
+#id_page_name {
+    font-size: xx-large;
+    text-align: center;
+}
+#id_nav_profile{
+    float: right;
+}
+.content{
+    font-size: large;
+    text-align: center;
+}
+
+.comment{
+    margin-left: 10vw;
+}
+
+#id_login_button{
+    padding: 10px;
+    margin: 4px;
+    font-size: large;
+}
+#id_register_button{
+    padding: 10px;
+    margin: 4px;
+    font-size: large;
+}
+#id_post_profile{
+    font-style: italic;
+}
+#id_post_date_time{
+    font-style: italic;
+}

@@ -1,0 +1,73 @@
+{% extends "socialnetwork/base.html" %}
+
+{% block header %}
+<header id="id_header_div">
+    <div>
+        <a href="{% url 'profile' %}" id="id_nav_profile">
+            {{user.first_name}} {{user.last_name}}
+        </a>
+    </div>
+    <nav id="id_nav">
+        <a href="{% url 'home' %}" id="id_site_name">Blog Master</a>
+        <ul>
+            <li>
+                <a href="{% url 'global' %}" id="id_nav_global_stream">
+                Global
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'follower' %}" id="id_nav_follower_stream">
+                Follower
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}" id="id_nav_logout">
+                Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+{% endblock %}
+
+
+{% block content %}
+    <!-- error -->
+    <section>
+        {% for error in form.non_field_errors %}
+            <mark class="errorlist">
+                {{ error }}
+            </mark>
+        {% endfor %}
+    </section>
+    <!-- Page name -->
+    <h2 id="id_page_name" value="Profile">Profile Page for {{profile.user.first_name}} {{profile.user.last_name}}</h2>
+    <!-- Profile picture -->
+    {% if not profile.picture %}
+        <img src = "{{default}}" id= "id_user_picture">
+    {% else %}
+        <img src = "{% url 'photo' profile.user.id %}" id= "id_user_picture">
+    {% endif %}
+    <!-- Profile bio -->
+    <form action="{% url 'profile' %}" method="POST" enctype="multipart/form-data">
+        <table>
+            {{form}}
+        </table>
+        {% csrf_token %}
+        <button id= "id_update_profile_button">Submit</button>
+    </form>
+    <!-- Profile follower -->
+    <div>
+        <label>You are following:</label>
+        <ul>
+            {% for u in profile.following.all %}
+                <li>
+                    <a href="{% url 'other' u.id %}"
+                        id= "id_profile_link_{{u.username}}">
+                        {{u.first_name}} {{u.last_name}}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

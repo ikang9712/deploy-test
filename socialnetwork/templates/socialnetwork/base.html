@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+    {% load static %}
+    {% static "socialnetwork/base.css" as basecss %}
+    {% static "socialnetwork/default.png" as default %}
+	<head>
+	    <meta charset="utf-8">
+		<link rel="stylesheet" href="{{basecss}}">
+         <script src="{% static 'socialnetwork/socialnetwork.js' %}" type="text/javascript"></script>
+		<title> {% block title %} blogmaster {% endblock %} </title>
+	</head>
+
+	<body>
+        <!-- Header -->
+        {% block header %}
+        {% endblock %}
+        <main class="content">
+            <!-- Content -->
+            {% block content %}
+            {% endblock %}
+        </main>
+        <footer> 2022 blogmaster </footer>
+	</body>
+
+</html>

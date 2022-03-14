@@ -1,0 +1,74 @@
+{% extends "socialnetwork/base.html" %}
+
+{% block header %}
+<header id="id_header_div">
+    <a href="{% url 'profile' %}" id="id_nav_profile">
+            {{user.first_name}} {{user.last_name}}
+        </a>
+    <nav id="id_nav">
+        <a href="{% url 'home' %}" id="id_site_name">Blog Master</a>
+        <ul>
+            <li>
+                <a href="{% url 'global' %}" id="id_nav_global_stream">
+                Global
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'follower' %}" id="id_nav_follower_stream">
+                Follower
+                </a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}" id="id_nav_logout">
+                Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+{% endblock %}
+
+{% block content %}
+<!-- error -->
+<div>
+    {% for error in form.non_field_errors %}
+        <mark class="errorlist">
+            {{ error }}
+        </mark>
+    {% endfor %}
+</div>
+
+<!-- page name -->
+<div>
+    <h2 id="id_page_name" value="Global Stream">Global Stream</h2>
+</div>
+
+<!-- new post -->
+<div>
+    <form action="{% url 'global' %}" method="POST">
+        <label>New Post:</label>
+        <input type="text" id="id_post_input_text" name="text">
+        <button onclick="addPost()" id="id_post_button">Submit</button>
+        <span id="error" class="error"></span>
+        {% csrf_token %}
+    </form>
+</div>
+
+<!-- posts -->
+<div class="post-container"><ol id="posts"></ol></div>
+<script>
+    // my info
+    var myUserName = '{{request.user.username}}'
+    var myUserID = '{{request.user.id}}'
+    // url info
+    var myProfileURL = '{% url "profile" %}'
+    var otherProfileURL = function (id) { return '{% url "other" 0 %}'.replace('0',id) }
+    var addPostURL = '{% url "ajax-add-post" %}'
+    var addCommentURL = '{% url "ajax-add-comment" %}'
+    // page info
+    var pageName = 'global'
+    // update every 5 seconds
+    window.onload = getPost;
+    window.setInterval(getPost, 5000);
+</script>
+{% endblock %}
